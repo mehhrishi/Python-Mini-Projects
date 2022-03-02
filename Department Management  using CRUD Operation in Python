@@ -1,0 +1,117 @@
+import pymysql as p
+
+def getconnection():
+    return p.connect(host="localhost", user="root",password="root", database="py12")
+    print("Database Connected")
+
+    
+    
+# insert code
+def insertdata():
+    print("----------------------------inserting Data----------------------------")
+    db=getconnection()
+    sql="insert into emp(ID,NAME,DEPARTMENT,SALARY) values(%s,%s,%s,%s)"
+    id=int(input("enter your id: "))
+    name=input("enter ur name: ")
+    dept=input("enter ur department: ")
+    salary=int(input("enter ur salary: "))
+    t=(id,name,dept,salary)
+    cur=db.cursor()
+    cur.execute(sql,t)
+    db.commit()
+    print(f"-------------------------------data inserted of {name} of ID: {id} -----------------")
+    db.close()
+    
+# display code
+
+def displaydata():
+    db=getconnection()
+    sql="select * from emp"
+    cur=db.cursor()
+    cur.execute(sql,)
+    data=cur.fetchall()
+    print("-----------------------------------------displaying data-------------------------------\n\n")
+    for i in data:
+        print(f"-------------------------------displaying data of ID: {i[0]}----------------------")
+        print("ur ID:          ",i[0])
+        print("ur NAME:        ",i[1])
+        print("ur DEPARTMENT:  ",i[2])
+        print("ur SALARY:      ",i[3])
+        print(f"-------------------------------displayed data for ID: {i[0]} of NAME: {i[1]}----------------------\n\n\n\n")
+    db.close()
+    print("\n------------------------------------------Data Displayed---------------------------------------")
+    
+    
+# update code
+
+def updatedata():
+    print("-------------------------------------Updating Data-----------------------------------------")
+    db=getconnection()
+    sql="update emp set NAME=%s,DEPARTMENT=%s,SALARY=%s where ID=%s"
+    idd=int(input("enter id: "))
+    name=input("enter ur name: ")
+    dept=input("enter ur department: ")
+    salary=int(input("enter ur salary: "))
+    t=(name,dept,salary,idd)
+    cur=db.cursor()
+    cur.execute(sql,t)
+    db.commit()
+    print("---------------------------------------Data Updated------------------------------------------------")
+    db.close()
+
+# DELETE CODE
+def deletedata():
+    print("---------------------------------------Deleting Data-----------------------------------------")
+    db=getconnection()
+    sql="delete from emp where ID=%s"
+    idd=int(input("enter id: "))
+    t=(idd,)
+    cur=db.cursor()
+    cur.execute(sql,t)
+    db.commit()
+    print(f"----------------------------------------Data Deleted of ID: {idd} -----------------------------------------")
+    db.close()
+    
+# display specific code
+def displayspec():
+    print(f"-----------------------------------Displaying Specific Data Function-----------------------------------------\n\n")
+    db=getconnection()
+    sql="select * from emp where ID=%s"
+    idd=int(input("enter ur id: "))
+    t=(idd,)
+    cur=db.cursor()
+    cur.execute(sql,t)
+    data=cur.fetchall()
+    print(f"\n---------------------------------DATA DISPLAYED of ID: {idd}-----------------")
+    for i in data:
+        print("ur ID:          ",i[0])
+        print("ur NAME:        ",i[1])
+        print("ur DEPARTMENT:  ",i[2])
+        print("ur SALARY:      ",i[3])
+        print(f"\n-----------------------------------DATA DISPLAYED Of {i[1]} of ID: {i[0]}-----------------")
+        
+    
+while True:
+    choice=int(input("1:insert \n2:display record\n3:update \n4:delete \n5:display Specific Record\n6:break\n"))
+    if choice==1:
+        print(f"you have choose {choice} to insert\n")
+        insertdata()
+    elif choice==2:
+        print(f"you have choose {choice} to display Data\n")
+        displaydata()
+    elif choice==3:
+        print(f"you have choose {choice} to Update\n")
+        updatedata()
+    elif choice==4:
+        print(f"you have choose {choice} to Delete\n")
+        deletedata()
+    elif choice==5: 
+        print(f"you have choose {choice} to Display Specific Data\n")
+        displayspec()
+    elif choice==6:
+        print(f"you have choose {choice} to End the Program\n")
+        print("byeeeeee")
+        break
+        
+
+    
