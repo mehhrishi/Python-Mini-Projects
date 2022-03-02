@@ -1,0 +1,49 @@
+import qrcode as qr
+# The QRCode function used above accepts the following parameters:
+# version: This parameter defines the size of the QR Code generated. It accepts integer values in the range of 1 to 40. The higher this value, bigger the dimension of the generated QR Code image.
+# box_size: This parameter defines the size of each box in pixels.
+# border: The border defines the thickness of the border. In this example, the value of 5 means that the border is equal to the thickness of 5 tiny black boxes.
+# The add_data method is used to pass our input text, which is the hyperlink to the article in our case. The make function with (fit=True) ensures that the entire dimension of the QR Code is utilized, even if our input data could fit into less number of boxes.
+# The last step is to convert this into an image file and store it. For this, the make_image function is used where we can specify the foreground and background color. I have used black and white respectively, but you can change them as per your preference. The save function stores the image as a .png file in the current directory.
+# https://towardsdatascience.com/generate-qrcode-with-python-in-5-lines-42eda283f325
+features=qr.QRCode(version=1,box_size=10,border=10)
+#  The QRCode function used above accepts the following parameters:
+#  version: This parameter defines the size of the QR Code generated. It accepts integer values in the range of 1 to 40.
+#  The higher this value, bigger the dimension of the generated QR Code image.
+#  box_size: This parameter defines the size of each box in pixels.
+
+# We can also use QRCode class to create a QR Code and change its details. It takes the following parameters:
+
+# Version: This parameter is an integer from 1 to 40 that controls the size of the QR Code (the smallest, version 1, is a 21×21 matrix).
+# error_correction:  This parameter controls the error correction used for the QR Code. There are following four constants available for this :
+# qrcode.constants.ERROR_CORRECT_L : About 7% or fewer errors can be corrected.
+# qrcode.constants.ERROR_CORRECT_M (default) : About 15% or fewer errors can be corrected.
+# qrcode.constants.ERROR_CORRECT_Q: About 25% or fewer errors can be corrected.
+# qrcode.constants.ERROR_CORRECT_H: About 30% or fewer errors can be corrected.
+# box_size: This parameter controls how many pixels each “box” of the QR code is.
+# border: The border parameter controls how many boxes thick the border should be (the default is 4, which is the minimum in the specification).
+# add_data(): This method is used to add data to the QRCode object. It takes the data to be encoded as a parameter.
+# make(): This method with (fit=True) ensures that the entire dimension of the QR Code is utilized, even if our input data could fit into less number of boxes.
+# make_image(): This method is used to convert the QRCode object into an image file. It takes the fill_color and back_color optional parameters to set the foreground and background color.
+# now will use add_data() function will mention the link init
+features.add_data("https://www.youtube.com/channel/UC5Fqel3XGW0YidJxnpP6AvA/")
+# add_data(): This method is used to add data to the QRCode object. It takes the data to be encoded as a parameter.
+features.make(fit=True)
+#make(): This method with (fit=True) ensures that the entire dimension of the QR Code is utilized, even if our input data could fit into less number of boxes.
+generate_img=features.make_image(fill_color="maroon",back_color="white")
+# generate_img=features.make_image(fill_img="IIKKIISS.jpg",back_color="white")
+
+# make_image(): This method is used to convert the QRCode object into an image file. It takes the fill_color and back_color optional parameters to set the foreground and background color.
+# mention the url and with the help of make() function
+# it will generate the qrcode of particular link
+# now will save it
+generate_img.save("mehhrishitube.png")
+# now you can run this program and the file will be saved
+# saved in png format
+# if you want to make any furher changes in the qrcpode
+# like giving border or colors you can also do that
+# any changees you want to make will be done before make() function
+
+
+
+
